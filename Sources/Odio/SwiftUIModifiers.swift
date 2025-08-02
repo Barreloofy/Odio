@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct SoundOnTap: ViewModifier {
-  @AudioPlayer private var odioplayer
+  @AudioPlayer private var audioPlayer
 
   let name: String
 
@@ -17,43 +17,45 @@ struct SoundOnTap: ViewModifier {
     content
       .simultaneousGesture(
         TapGesture()
-          .onEnded { odioplayer() }
-      )
-      .onAppear { odioplayer = OdioPlayer(name) }
-      .onDisappear { odioplayer.stop() }
+          .onEnded { audioPlayer() })
+      .onAppear { audioPlayer = OdioPlayer(name) }
+      .onDisappear { audioPlayer.stop() }
   }
 }
 
 
 struct SoundOnChange<T: Hashable>: ViewModifier {
-  @AudioPlayer private var odioplayer
+  @AudioPlayer private var audioPlayer
 
   let name: String
   let value: T
 
   func body(content: Content) -> some View {
     content
-      .onChange(of: value) { odioplayer() }
-      .onAppear { odioplayer = OdioPlayer(name) }
-      .onDisappear { odioplayer.stop() }
+      .onChange(of: value) { audioPlayer() }
+      .onAppear { audioPlayer = OdioPlayer(name) }
+      .onDisappear { audioPlayer.stop() }
   }
 }
 
 
 struct SoundConditionally: ViewModifier {
-  @AudioPlayer private var odioplayer
+  @AudioPlayer private var audioPlayer
 
   let name: String
   let shouldPlay: Bool
 
   func body(content: Content) -> some View {
     content
-      .onChange(of: shouldPlay, initial: true) {
+      .onChange(of: shouldPlay) {
         guard shouldPlay else { return }
-        odioplayer()
+        audioPlayer()
       }
-      .onAppear { odioplayer = OdioPlayer(name) }
-      .onDisappear { odioplayer.stop() }
+      .onAppear {
+        audioPlayer = OdioPlayer(name)
+        if shouldPlay { audioPlayer() }
+      }
+      .onDisappear { audioPlayer.stop() }
   }
 }
 
@@ -78,7 +80,7 @@ extension View {
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - shouldPlay: The value to monitor for true.
-  public func soundFeedback(_ name: String, shouldPlay: Bool) -> some View {
-    modifier(SoundConditionally(name: name, shouldPlay: shouldPlay))
+  public func soundFeedback(_ name: String, shouldPlay: @autoclosure () -> Bool) -> some View {
+    modifier(SoundConditionally(name: name, shouldPlay: shouldPlay()))
   }
 }

@@ -8,6 +8,42 @@
 import SwiftUI
 
 /// A property wrapper that can playback audio.
+///
+/// > Important:
+/// The underlying player is stored in an `@State` property wrapper,
+/// which has the side effect that repeated calls to the `@AudioPlayer` instance
+/// will result in that not all calls to the instance will play audio, only once the previous call has finished playing.
+///
+/// Refer directly to an instance of `@AudioPlayer` to access its wrapped value.
+/// ```swift
+/// struct SoundView: View {
+///   @AudioPlayer("TapSound.mp3") private var audioPlayer
+///
+///   var body: some View {
+///       Button("Play Sound") { audioPlayer() }
+///
+///       Button("New Sound") { audioPlayer = .init("ThunderSound.mp3") }
+///   }
+/// }
+/// ```
+/// You can also initiate an empty `@AudioPlayer`, useful when the audio file to use is not known initially.
+/// ```swift
+/// struct SoundOnTap: ViewModifier {
+///   @AudioPlayer private var audioPlayer
+///
+///   let name: String
+///
+///   func body(content: Content) -> some View {
+///     content
+///       .simultaneousGesture(
+///         TapGesture()
+///           .onEnded { audioPlayer() })
+///       .onAppear { audioPlayer = OdioPlayer(name) }
+///       .onDisappear { audioPlayer.stop() }
+///   }
+/// }
+/// ```
+@MainActor
 @propertyWrapper public struct AudioPlayer: DynamicProperty {
   @State private var player: OdioPlayer
 
@@ -24,9 +60,5 @@ import SwiftUI
     self.player = .init(name, after: delay, from: bundle)
   }
 
-  /// - Parameters:
-  ///   - delay: The delay in seconds before the player starts playing.
-  public init(delay: TimeInterval = 0) {
-    self.player = .init(delay: delay)
-  }
+  public init() { player = .init() }
 }

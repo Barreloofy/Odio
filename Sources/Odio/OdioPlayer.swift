@@ -21,11 +21,9 @@ public struct OdioPlayer {
     self.delay = delay
   }
 
-  /// - Parameters:
-  ///   - delay: The delay in seconds before the player starts playing.
-  public init(delay: TimeInterval = 0) {
+  public init() {
     self.player = nil
-    self.delay = delay
+    self.delay = 0
   }
 
   public func callAsFunction() {

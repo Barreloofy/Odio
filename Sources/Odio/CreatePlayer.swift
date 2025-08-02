@@ -14,9 +14,9 @@ import AVFoundation
 /// - Returns: An initiated instance of AVAudioPlayer with the contents of the file, if an error occured nil.
 public func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer? {
   do {
-    guard
-      let url = bundle.url(forResource: name, withExtension: nil)
-    else { throw OdioError.resourceNotFound("File: \(name) not found in bundle: \(bundle)") }
+    guard let url = bundle.url(forResource: name, withExtension: nil) else {
+      throw OdioError.resourceNotFound("File: \(name) not found in bundle: \(bundle)")
+    }
 
     let player = try AVAudioPlayer(contentsOf: url)
 
