@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-struct SoundOnTap: ViewModifier {
+struct AudioOnTap: ViewModifier {
   @AudioPlayer private var audioPlayer
 
   let name: String
@@ -24,7 +24,7 @@ struct SoundOnTap: ViewModifier {
 }
 
 
-struct SoundOnChange<T: Hashable>: ViewModifier {
+struct AudioOnChange<T: Hashable>: ViewModifier {
   @AudioPlayer private var audioPlayer
 
   let name: String
@@ -39,7 +39,7 @@ struct SoundOnChange<T: Hashable>: ViewModifier {
 }
 
 
-struct SoundConditionally: ViewModifier {
+struct AudioConditionally: ViewModifier {
   @AudioPlayer private var audioPlayer
 
   let name: String
@@ -64,46 +64,46 @@ extension View {
   /// Plays a sound when the attached view is tapped.
   /// - Parameters:
   ///   - name: The name of an audio file.
-  public func soundFeedback(_ name: String) -> some View {
-    modifier(SoundOnTap(name: name))
+  public func audioFeedback(_ name: String) -> some View {
+    modifier(AudioOnTap(name: name))
   }
 
   /// Plays a sound when trigger changes.
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - trigger: The value to monitor for changes.
-  public func soundFeedback(_ name: String, trigger: some Hashable) -> some View {
-    modifier(SoundOnChange(name: name, value: trigger))
+  public func audioFeedback(_ name: String, trigger: some Hashable) -> some View {
+    modifier(AudioOnChange(name: name, value: trigger))
   }
 
   /// Plays a sound when shouldPlay is evaluated as true.
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - shouldPlay: The value to monitor for true.
-  public func soundFeedback(_ name: String, shouldPlay: () -> Bool) -> some View {
-    modifier(SoundConditionally(name: name, shouldPlay: shouldPlay()))
+  public func audioFeedback(_ name: String, shouldPlay: () -> Bool) -> some View {
+    modifier(AudioConditionally(name: name, shouldPlay: shouldPlay()))
   }
 
   /// Plays a sound when the attached view is tapped.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
-  public func soundFeedback(_ key: FileKey) -> some View {
-    modifier(SoundOnTap(name: key()))
+  public func audioFeedback(_ key: FileKey) -> some View {
+    modifier(AudioOnTap(name: key()))
   }
 
   /// Plays a sound when trigger changes.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - trigger: The value to monitor for changes.
-  public func soundFeedback(_ key: FileKey, trigger: some Hashable) -> some View {
-    modifier(SoundOnChange(name: key(), value: trigger))
+  public func audioFeedback(_ key: FileKey, trigger: some Hashable) -> some View {
+    modifier(AudioOnChange(name: key(), value: trigger))
   }
 
   /// Plays a sound when shouldPlay is evaluated as true.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - shouldPlay: The value to monitor for true.
-  public func soundFeedback(_ key: FileKey, shouldPlay: () -> Bool) -> some View {
-    modifier(SoundConditionally(name: key(), shouldPlay: shouldPlay()))
+  public func audioFeedback(_ key: FileKey, shouldPlay: () -> Bool) -> some View {
+    modifier(AudioConditionally(name: key(), shouldPlay: shouldPlay()))
   }
 }
