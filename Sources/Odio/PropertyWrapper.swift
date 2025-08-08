@@ -14,19 +14,6 @@ import SwiftUI
 /// which has the side effect that repeated calls to the `@AudioPlayer` instance
 /// will result in that not all calls to the instance will play audio, only once the previous call has finished playing.
 ///
-/// Refer directly to an instance of `@AudioPlayer` to access its wrapped value.
-/// ```swift
-/// struct SoundView: View {
-///   @AudioPlayer("TapSound.mp3") private var audioPlayer
-///
-///   var body: some View {
-///       Button("Play Sound") { audioPlayer() }
-///
-///       Button("New Sound") { audioPlayer = .init("ThunderSound.mp3") }
-///   }
-/// }
-/// ```
-///
 /// Use the `FileKey` overload initializer to quickly and safely initialize a new `@AudioPlayer`.
 ///```swift
 /// extension FileKey {
@@ -50,6 +37,19 @@ import SwiftUI
 ///           .onEnded { audioPlayer() })
 ///       .onAppear { audioPlayer = OdioPlayer(name) }
 ///       .onDisappear { audioPlayer.stop() }
+///   }
+/// }
+/// ```
+///
+/// Refer directly to an instance of `@AudioPlayer` to access its wrapped value.
+/// ```swift
+/// struct SoundView: View {
+///   @AudioPlayer("TapSound.mp3") private var audioPlayer
+///
+///   var body: some View {
+///       Button("Play Sound") { audioPlayer() }
+///
+///       Button("New Sound") { audioPlayer = .init("ThunderSound.mp3") }
 ///   }
 /// }
 /// ```

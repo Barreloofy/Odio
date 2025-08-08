@@ -80,7 +80,7 @@ extension View {
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - shouldPlay: The value to monitor for true.
-  public func soundFeedback(_ name: String, shouldPlay: @autoclosure () -> Bool) -> some View {
+  public func soundFeedback(_ name: String, shouldPlay: () -> Bool) -> some View {
     modifier(SoundConditionally(name: name, shouldPlay: shouldPlay()))
   }
 
@@ -103,7 +103,7 @@ extension View {
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - shouldPlay: The value to monitor for true.
-  public func soundFeedback(_ key: FileKey, shouldPlay: @autoclosure () -> Bool) -> some View {
+  public func soundFeedback(_ key: FileKey, shouldPlay: () -> Bool) -> some View {
     modifier(SoundConditionally(name: key(), shouldPlay: shouldPlay()))
   }
 }
