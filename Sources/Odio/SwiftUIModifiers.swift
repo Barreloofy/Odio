@@ -83,4 +83,27 @@ extension View {
   public func soundFeedback(_ name: String, shouldPlay: @autoclosure () -> Bool) -> some View {
     modifier(SoundConditionally(name: name, shouldPlay: shouldPlay()))
   }
+
+  /// Plays a sound when the attached view is tapped.
+  /// - Parameters:
+  ///   - key: The key identifying an audio file.
+  public func soundFeedback(_ key: FileKey) -> some View {
+    modifier(SoundOnTap(name: key()))
+  }
+
+  /// Plays a sound when trigger changes.
+  /// - Parameters:
+  ///   - key: The key identifying an audio file.
+  ///   - trigger: The value to monitor for changes.
+  public func soundFeedback(_ key: FileKey, trigger: some Hashable) -> some View {
+    modifier(SoundOnChange(name: key(), value: trigger))
+  }
+
+  /// Plays a sound when shouldPlay is evaluated as true.
+  /// - Parameters:
+  ///   - key: The key identifying an audio file.
+  ///   - shouldPlay: The value to monitor for true.
+  public func soundFeedback(_ key: FileKey, shouldPlay: @autoclosure () -> Bool) -> some View {
+    modifier(SoundConditionally(name: key(), shouldPlay: shouldPlay()))
+  }
 }

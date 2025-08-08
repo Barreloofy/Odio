@@ -28,3 +28,12 @@ public func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer?
     return nil
   }
 }
+
+/// Creates an AVAudioPlayer from the contents of a file.
+/// - Parameters:
+///   - key: The key identifying an audio file.
+///   - bundle: The bundle to retrieve the file from.
+/// - Returns: An initiated instance of AVAudioPlayer with the contents of the file, if an error occured nil.
+public func createPlayer(key: FileKey, bundle: Bundle = .main) -> AVAudioPlayer? {
+  createPlayer(name: key(), bundle: bundle)
+}

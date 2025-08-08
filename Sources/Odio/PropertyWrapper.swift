@@ -26,6 +26,16 @@ import SwiftUI
 ///   }
 /// }
 /// ```
+///
+/// Use the `FileKey` overload initializer to quickly and safely initialize a new `@AudioPlayer`.
+///```swift
+/// extension FileKey {
+///   static let tapSound = FileKey(value: "TapSound.mp3")
+/// }
+///
+/// @AudioPlayer(.tapSound) private var audioPlayer
+///```
+///
 /// You can also initiate an empty `@AudioPlayer`, useful when the audio file to use is not known initially.
 /// ```swift
 /// struct SoundOnTap: ViewModifier {
@@ -58,6 +68,14 @@ import SwiftUI
   ///   - bundle: The bundle to retrieve the file from.
   public init(_ name: String, after delay: TimeInterval = 0, from bundle: Bundle = .main) {
     self.player = .init(name, after: delay, from: bundle)
+  }
+
+  /// - Parameters:
+  ///   - key: The key identifying an audio file.
+  ///   - delay: The delay in seconds before the player starts playing.
+  ///   - bundle: The bundle to retrieve the file from.
+  public init(_ key: FileKey, after delay: TimeInterval = 0, from bundle: Bundle = .main) {
+    self.player = .init(key(), after: delay, from: bundle)
   }
 
   public init() { player = .init() }
