@@ -61,14 +61,14 @@ struct AudioConditionally: ViewModifier {
 
 
 extension View {
-  /// Plays a sound when the attached view is tapped.
+  /// Plays audio when the attached view is tapped.
   /// - Parameters:
   ///   - name: The name of an audio file.
   public func audioFeedback(_ name: String) -> some View {
     modifier(AudioOnTap(name: name))
   }
 
-  /// Plays a sound when trigger changes.
+  /// Plays audio when trigger changes.
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - trigger: The value to monitor for changes.
@@ -76,7 +76,7 @@ extension View {
     modifier(AudioOnChange(name: name, value: trigger))
   }
 
-  /// Plays a sound when shouldPlay is evaluated as true.
+  /// Plays audio when shouldPlay is evaluated as true.
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - shouldPlay: The value to monitor for true.
@@ -84,14 +84,14 @@ extension View {
     modifier(AudioConditionally(name: name, shouldPlay: shouldPlay()))
   }
 
-  /// Plays a sound when the attached view is tapped.
+  /// Plays audio when the attached view is tapped.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   public func audioFeedback(_ key: FileKey) -> some View {
     modifier(AudioOnTap(name: key()))
   }
 
-  /// Plays a sound when trigger changes.
+  /// Plays audio when trigger changes.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - trigger: The value to monitor for changes.
@@ -99,7 +99,7 @@ extension View {
     modifier(AudioOnChange(name: key(), value: trigger))
   }
 
-  /// Plays a sound when shouldPlay is evaluated as true.
+  /// Plays audio when shouldPlay is evaluated as true.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - shouldPlay: The value to monitor for true.

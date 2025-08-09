@@ -10,9 +10,11 @@ import SwiftUI
 /// A property wrapper that can playback audio.
 ///
 /// > Important:
-/// The underlying player is stored in an `@State` property wrapper,
-/// which has the side effect that repeated calls to the `@AudioPlayer` instance
-/// will result in that not all calls to the instance will play audio, only once the previous call has finished playing.
+/// The underlying player is stored as a `@State` property wrapper,
+/// which has the side effect of not all calls to the `@AudioPlayer` instance will play audio,
+/// only once the previous call has finished playing.
+/// Most notably, it is with calls made in quick succession or lengthy audio.
+/// To resolve the issue call the `end()` method before the next call.
 ///
 /// Use the `FileKey` overload initializer to quickly and safely initialize a new `@AudioPlayer`.
 ///```swift

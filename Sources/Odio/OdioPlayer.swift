@@ -31,5 +31,12 @@ public struct OdioPlayer {
     player.play(atTime: player.deviceCurrentTime + delay)
   }
 
+  /// Stops playback.
   public func stop() { player?.stop() }
+
+  /// Stops playback and resets playback time to 0.
+  public func end() {
+    player?.stop()
+    player?.currentTime = .zero
+  }
 }
