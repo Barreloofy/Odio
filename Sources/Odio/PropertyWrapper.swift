@@ -25,7 +25,7 @@ import SwiftUI
 /// @AudioPlayer(.tapSound) private var audioPlayer
 ///```
 ///
-/// You can also initiate an empty `@AudioPlayer`, useful when the audio file to use is not known initially.
+/// You can also initialize an empty `@AudioPlayer`, useful when the audio file to use is not known initially.
 /// ```swift
 /// struct SoundOnTap: ViewModifier {
 ///   @AudioPlayer private var audioPlayer
@@ -42,6 +42,17 @@ import SwiftUI
 ///   }
 /// }
 /// ```
+///
+///Initialize an instance of `@AudioPlayer` with the `after` argument label specified to introduce a delay before playback.
+///```swift
+/// struct DelayView: View {
+///   @AudioPlayer(.tap, after: 1.0) private var audioPlayer
+///
+///   var body: some View {
+///     Button("Tap Me") { audioPlayer() }
+///   }
+/// }
+///```
 ///
 /// Refer directly to an instance of `@AudioPlayer` to access its wrapped value.
 /// ```swift

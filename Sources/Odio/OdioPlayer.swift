@@ -10,6 +10,8 @@ import AVFoundation
 /// The underlying type used by Odio as audio player.
 public struct OdioPlayer {
   private let player: AVAudioPlayer?
+
+  /// The delay before playback occurs.
   public var delay: TimeInterval
 
   /// - Parameters:
