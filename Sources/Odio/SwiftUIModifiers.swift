@@ -42,21 +42,29 @@ struct AudioOnChange<T: Hashable>: ViewModifier {
 
 
 struct AudioConditionally: ViewModifier {
+  struct PlaybackTrigger: Equatable {
+    let id = UUID()
+
+    let value: Bool
+
+    func callAsFunction() -> Bool { value }
+  }
+
   @AudioPlayer private var audioPlayer
 
   let name: String
   let delay: TimeInterval
-  let shouldPlay: Bool
+  let shouldPlay: PlaybackTrigger
 
   func body(content: Content) -> some View {
     content
       .onChange(of: shouldPlay) {
-        guard shouldPlay else { return }
+        guard shouldPlay() else { return }
         audioPlayer()
       }
       .onAppear {
         audioPlayer = OdioPlayer(name, after: delay)
-        if shouldPlay { audioPlayer() }
+        if shouldPlay() { audioPlayer() }
       }
       .onDisappear { audioPlayer.stop() }
   }
@@ -87,7 +95,7 @@ extension View {
   ///   - delay: The time in seconds before playback occurs.
   ///   - shouldPlay: The value to monitor for true.
   public func audioFeedback(_ name: String, after delay: TimeInterval = 0, shouldPlay: () -> Bool) -> some View {
-    modifier(AudioConditionally(name: name, delay: delay, shouldPlay: shouldPlay()))
+    modifier(AudioConditionally(name: name, delay: delay, shouldPlay: .init(value: shouldPlay())))
   }
 
   /// Plays audio when the attached view is tapped.
@@ -113,6 +121,6 @@ extension View {
   ///   - delay: The time in seconds before playback occurs.
   ///   - shouldPlay: The value to monitor for true.
   public func audioFeedback(_ key: FileKey, after delay: TimeInterval = 0, shouldPlay: () -> Bool) -> some View {
-    modifier(AudioConditionally(name: key(), delay: delay, shouldPlay: shouldPlay()))
+    modifier(AudioConditionally(name: key(), delay: delay, shouldPlay: .init(value: shouldPlay())))
   }
 }
