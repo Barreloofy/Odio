@@ -77,7 +77,7 @@ import SwiftUI
 
   /// - Parameters:
   ///   - name: The name of an audio file.
-  ///   - delay: The delay in seconds before the player starts playing.
+  ///   - delay: The time in seconds before playback occurs.
   ///   - bundle: The bundle to retrieve the file from.
   public init(_ name: String, after delay: TimeInterval = 0, from bundle: Bundle = .main) {
     self.player = .init(name, after: delay, from: bundle)
@@ -85,7 +85,7 @@ import SwiftUI
 
   /// - Parameters:
   ///   - key: The key identifying an audio file.
-  ///   - delay: The delay in seconds before the player starts playing.
+  ///   - delay: The time in seconds before playback occurs.
   ///   - bundle: The bundle to retrieve the file from.
   public init(_ key: FileKey, after delay: TimeInterval = 0, from bundle: Bundle = .main) {
     self.player = .init(key(), after: delay, from: bundle)

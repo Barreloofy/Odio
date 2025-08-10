@@ -16,7 +16,7 @@ public struct OdioPlayer {
 
   /// - Parameters:
   ///   - name: The name of an audio file.
-  ///   - delay: The delay in seconds before the player starts playing.
+  ///   - delay: The time in seconds before playback occurs.
   ///   - bundle: The bundle to retrieve the file from.
   public init(_ name: String, after delay: TimeInterval = 0, from bundle: Bundle = .main) {
     self.player = createPlayer(name: name, bundle: bundle)

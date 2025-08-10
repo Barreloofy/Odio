@@ -55,16 +55,16 @@ struct ContentView: View {
 
 The `audioFeedback` API consists of different view methods applicable in different scenarios:
 
-  * ``SwiftUICore/View/audioFeedback(_:)-7cz3z`` Plays audio when the attached view is tapped.
+* ``SwiftUICore/View/audioFeedback(_:after:)-14mil`` Plays audio when the attached view is tapped.
 
-  * ``SwiftUICore/View/audioFeedback(_:shouldPlay:)-4gj6a`` Plays audio when shouldPlay is evaluated as true.
+* ``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-77u92`` Plays audio when shouldPlay is evaluated as true.
 
-  * ``SwiftUICore/View/audioFeedback(_:trigger:)-2flvx`` Plays audio when trigger changes.
+  * ``SwiftUICore/View/audioFeedback(_:after:trigger:)-60fd3` Plays audio when trigger changes.
 
 All of these methods have an overloaded version with ``Odio/FileKey`` instead of `String`,
 See: <doc:UsingFileKey> to learn more.
 
-``SwiftUICore/View/audioFeedback(_:)-7cz3z`` Plays `IncrementSound.mp3` every time the button is tapped.
+``SwiftUICore/View/audioFeedback(_:after:)-14mil`` Plays `IncrementSound.mp3` every time the button is tapped.
 ```swift
 var body: some View {
   Button("+ Increment") { ... }
@@ -72,7 +72,7 @@ var body: some View {
 }
 ```
 
-``SwiftUICore/View/audioFeedback(_:shouldPlay:)-4gj6a`` Every time `count` is even plays EvenSound.mp3
+``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-77u92`` Every time `count` is even plays EvenSound.mp3
 otherwise plays `OddSound.mp3`.
 ```swift
 var body: some View {
@@ -82,7 +82,7 @@ var body: some View {
 }
 ```
 
-``SwiftUICore/View/audioFeedback(_:trigger:)-2flvx`` Plays "InsertSound.mp3" when a new `Int` is added 
+``SwiftUICore/View/audioFeedback(_:after:trigger:)-60fd3`` Plays "InsertSound.mp3" when a new `Int` is added 
 to the Set `uniqueInts`.
 ```swift
 var body: some View {

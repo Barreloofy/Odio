@@ -2,11 +2,8 @@
 
 ## Overview
 
-``Odio/AudioPlayer`` provides an argument label called `after` in its initializers,
-it introduces a delay before playback occurs.
-The default value is set to `0` and the time-interval is in seconds.
-
-Specify a value in seconds to delay playback:
+Both ``Odio/AudioPlayer`` and `audioFeedback()` provide an argument label called `after` in its initializers,
+specify a value in seconds for `after` to delay playback.
 ```swift
 struct ContentView: View {
   @AudioPlayer(.tap, after: 1.0) private var audioPlayer
@@ -14,5 +11,12 @@ struct ContentView: View {
   var body: some View {
     Button("Tap Me") { audioPlayer() }
   } 
+}
+```
+
+```swift
+var body: some View {
+  Text("Tap Me")
+    .audioFeedback(.tap, after: 1.0)
 }
 ```
