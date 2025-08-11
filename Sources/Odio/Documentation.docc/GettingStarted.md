@@ -5,7 +5,7 @@
 Odio offers two different approaches for interacting with its API.
 An imperative approach through the ``Odio/AudioPlayer`` property wrapper and
 a declarative approach through the different `audioFeedback` view methods.
-This article will give an overview of both approaches, starting with ``Odio/AudioPlayer``.
+This article will give an overview of both approaches, starting with `AudioPlayer`.
 
 ### Create an AudioPlayer
 
@@ -15,6 +15,7 @@ Initialize an instance with a `String`.
 ```swift
 @AudioPlayer("Tap.mp3") private var audioPlayer
 ```
+
 Initialize an instance with a ``Odio/FileKey``.
 ```swift
 @AudioPlayer(.tap) private var audioPlayer
@@ -27,9 +28,10 @@ Initialize an empty instance.
 
 ### Use AudioPlayer
 
-At first an empty ``Odio/AudioPlayer`` is Initialized, 
-once the view appears the appropriate player is Initialized.
-To play audio call the instance directly `audioPlayer()`.
+The view is initialized with an empty `@AudioPlayer`,
+once the view appears and its `onAppear()` method is called
+the appropriate `OdioPlayer` is initialized and assigned to `audioPlayer`.
+Then, playback occurs by calling the instance directly `audioPlayer()`.
 ```swift
 struct ContentView: View {
   @AudioPlayer private var audioPlayer
@@ -59,7 +61,7 @@ The `audioFeedback` API consists of different view methods applicable in differe
 
 * ``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-77u92`` Plays audio when shouldPlay is evaluated as true.
 
-  * ``SwiftUICore/View/audioFeedback(_:after:trigger:)-60fd3` Plays audio when trigger changes.
+  * ``SwiftUICore/View/audioFeedback(_:after:trigger:)-60fd3`` Plays audio when trigger changes.
 
 All of these methods have an overloaded version with ``Odio/FileKey`` instead of `String`,
 See: <doc:UsingFileKey> to learn more.

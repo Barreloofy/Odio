@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-/// The underlying type used by Odio as audio player.
+/// The underlying type used by Odio for audio playback.
 public struct OdioPlayer {
   private let player: AVAudioPlayer?
 

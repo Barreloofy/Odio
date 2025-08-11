@@ -5,9 +5,9 @@
 // Created by Barreloofy on 8/8/25 at 4:10 PM
 //
 
-/// Extend `FileKey` with the name of a file, for safer and quicker access.
+/// A type representing a file.
 ///
-/// Insted of using the string literal directly create a static instance of `FileKey` to use in supported initializers.
+/// Extend `FileKey` with a static instance for safer and quicker access.
 /// ```swift
 /// extension FileKey {
 ///   static let tapSound = FileKey(value: "TapSound.mp3")
@@ -16,6 +16,8 @@
 public struct FileKey: Sendable {
   public let value: String
 
+  /// - Parameters:
+  ///   - value: The name of a file with its filename extension.
   public init(value: String) {
     self.value = value
   }

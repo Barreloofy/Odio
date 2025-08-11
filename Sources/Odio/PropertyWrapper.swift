@@ -10,20 +10,19 @@ import SwiftUI
 /// A property wrapper that can playback audio.
 ///
 /// > Important:
-/// The underlying player is stored as a `@State` property wrapper,
-/// which has the side effect of not all calls to the `@AudioPlayer` instance will play audio,
-/// only once the previous call has finished playing.
-/// Most notably, it is with calls made in quick succession or lengthy audio.
-/// To resolve the issue call the `end()` method before the next call.
+/// The underlying player is managed as a `@State` property wrapper.
+/// As a result, rapid or successive calls to the `OdioPlayer` instance may not play audio if a previous playback is still active.
+/// This is particularly noticeable with lengthy audio files or quick successive calls.
+/// If this becomes a concern, call the `end()` method before initiating a new playback.
 ///
 /// Use the `FileKey` overload initializer to quickly and safely initialize a new `@AudioPlayer`.
-///```swift
+/// ```swift
 /// extension FileKey {
 ///   static let tapSound = FileKey(value: "TapSound.mp3")
 /// }
 ///
 /// @AudioPlayer(.tapSound) private var audioPlayer
-///```
+/// ```
 ///
 /// You can also initialize an empty `@AudioPlayer`, useful when the audio file to use is not known initially.
 /// ```swift
@@ -43,8 +42,8 @@ import SwiftUI
 /// }
 /// ```
 ///
-///Initialize an instance of `@AudioPlayer` with the `after` argument label specified to introduce a delay before playback.
-///```swift
+/// Initialize an instance of `@AudioPlayer` with the `after` argument label specified to introduce a delay before playback.
+/// ```swift
 /// struct DelayView: View {
 ///   @AudioPlayer(.tap, after: 1.0) private var audioPlayer
 ///
@@ -52,7 +51,7 @@ import SwiftUI
 ///     Button("Tap Me") { audioPlayer() }
 ///   }
 /// }
-///```
+/// ```
 ///
 /// Refer directly to an instance of `@AudioPlayer` to access its wrapped value.
 /// ```swift
