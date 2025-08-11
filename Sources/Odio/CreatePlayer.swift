@@ -1,5 +1,5 @@
 //
-// GlobalFunctions.swift
+// CreatePlayer.swift
 // Odio
 //
 // Created by Barreloofy on 7/24/25 at 6:18 PM
@@ -12,7 +12,7 @@ import AVFoundation
 ///   - name: The name of an audio file.
 ///   - bundle: The bundle to retrieve the file from.
 /// - Returns: An initiated instance of AVAudioPlayer with the contents of the file, if an error occured nil.
-public func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer? {
+func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer? {
   do {
     guard let url = bundle.url(forResource: name, withExtension: nil) else {
       throw OdioError.resourceNotFound("File: \(name) not found in bundle: \(bundle)")
@@ -27,13 +27,4 @@ public func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer?
     errorLogger.error("\(error)")
     return nil
   }
-}
-
-/// Creates an AVAudioPlayer from the contents of a file.
-/// - Parameters:
-///   - key: The key identifying an audio file.
-///   - bundle: The bundle to retrieve the file from.
-/// - Returns: An initiated instance of AVAudioPlayer with the contents of the file, if an error occured nil.
-public func createPlayer(key: FileKey, bundle: Bundle = .main) -> AVAudioPlayer? {
-  createPlayer(name: key(), bundle: bundle)
 }
