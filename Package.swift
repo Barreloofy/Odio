@@ -7,7 +7,7 @@ let package = Package(
     name: "Odio",
     platforms: [
       .iOS(.v17),
-      .macOS(.v14)
+      .macOS(.v14),
     ],
     products: [
         .library(

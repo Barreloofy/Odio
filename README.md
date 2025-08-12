@@ -7,8 +7,9 @@
 
 # Features
 * **`@AudioPlayer` property wrapper offers a modern imperative approach to audio management in SwiftUI.**
-* **The view method `soundFeedback`, with its overloads, offers a familiar declarative approach to audio management.**
+* **The view method `soundFeedback`, with its overloads, offers a familiar declarative approach for audio playback.**
 
 # Get Started 
 * **Use Swift Package Manager to add Odio to your project <https://github.com/Barreloofy/Odio>.** 
-* **Use `import Odio` as needed.**
+* **Read documentation, build documentation (⌃⇧⌘D) and (⇧⌘0) to read documentation.**
+* **Use `Odio` as needed.**

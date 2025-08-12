@@ -18,10 +18,10 @@ import SwiftUI
 /// Use the `FileKey` overload initializer to quickly and safely initialize a new `@AudioPlayer`.
 /// ```swift
 /// extension FileKey {
-///   static let tapSound = FileKey(value: "TapSound.mp3")
+///   static let tap = FileKey(value: "TapSound.mp3")
 /// }
 ///
-/// @AudioPlayer(.tapSound) private var audioPlayer
+/// @AudioPlayer(.tap) private var audioPlayer
 /// ```
 ///
 /// You can also initialize an empty `@AudioPlayer`, useful when the audio file to use is not known initially.
@@ -42,7 +42,8 @@ import SwiftUI
 /// }
 /// ```
 ///
-/// Initialize an instance of `@AudioPlayer` with the `after` argument label specified to introduce a delay before playback.
+/// Initialize an instance of `@AudioPlayer`with playback delay.
+/// Here, playback will occur after a delay of one second.
 /// ```swift
 /// struct DelayView: View {
 ///   @AudioPlayer(.tap, after: 1.0) private var audioPlayer
@@ -53,7 +54,7 @@ import SwiftUI
 /// }
 /// ```
 ///
-/// Refer directly to an instance of `@AudioPlayer` to access its wrapped value.
+/// Refer directly to an instance of `@AudioPlayer` to implicitly access its wrapped value.
 /// ```swift
 /// struct SoundView: View {
 ///   @AudioPlayer("TapSound.mp3") private var audioPlayer
@@ -66,9 +67,15 @@ import SwiftUI
 /// }
 /// ```
 @MainActor
-@propertyWrapper public struct AudioPlayer: DynamicProperty {
+@propertyWrapper
+public struct AudioPlayer: DynamicProperty {
   @State private var player: OdioPlayer
 
+  /// The underlying value referenced by the `@AudioPlayer` instance.
+  ///
+  /// You don't typically access `wrappedValue` explicitly.
+  /// Instead, you gain access to the wrapped value by referring to the instance
+  /// that you create with `@AudioPlayer`.
   public var wrappedValue: OdioPlayer {
     get { player }
     nonmutating set { player = newValue }
@@ -77,18 +84,21 @@ import SwiftUI
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
+  ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
-  public init(_ name: String, after delay: TimeInterval = 0, from bundle: Bundle = .main) {
-    self.player = .init(name, after: delay, from: bundle)
+  public init(_ name: String, after delay: TimeInterval = 0, repeatMode: RepeatMode = .count(), from bundle: Bundle = .main) {
+    self.player = .init(name, after: delay, repeatMode: repeatMode, from: bundle)
   }
 
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - delay: The time in seconds before playback occurs.
+  ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
-  public init(_ key: FileKey, after delay: TimeInterval = 0, from bundle: Bundle = .main) {
-    self.player = .init(key(), after: delay, from: bundle)
+  public init(_ key: FileKey, after delay: TimeInterval = 0, repeatMode: RepeatMode = .count(), from bundle: Bundle = .main) {
+    self.player = .init(key, after: delay, repeatMode: repeatMode, from: bundle)
   }
 
+  /// Creates an empty `@AudioPlayer`.
   public init() { player = .init() }
 }

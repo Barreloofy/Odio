@@ -27,11 +27,12 @@ Initialize an empty instance.
 ```
 
 ### Use AudioPlayer
+Control audio playback by interacting with an instance of `@AudioPlayer`.
 
-The view is initialized with an empty `@AudioPlayer`,
+Here, the view is initialized with an empty `@AudioPlayer`,
 once the view appears and its `onAppear()` method is called
 the appropriate `OdioPlayer` is initialized and assigned to `audioPlayer`.
-Then, playback occurs by calling the instance directly `audioPlayer()`.
+Then, playback occurs by calling the instance directly: `audioPlayer()`.
 ```swift
 struct ContentView: View {
   @AudioPlayer private var audioPlayer
@@ -61,7 +62,7 @@ The `audioFeedback` API consists of different view methods applicable in differe
 
 * ``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-77u92`` Plays audio when shouldPlay is evaluated as true.
 
-  * ``SwiftUICore/View/audioFeedback(_:after:trigger:)-60fd3`` Plays audio when trigger changes.
+* ``SwiftUICore/View/audioFeedback(_:after:trigger:)-60fd3`` Plays audio when trigger changes.
 
 All of these methods have an overloaded version with ``Odio/FileKey`` instead of `String`,
 See: <doc:UsingFileKey> to learn more.
