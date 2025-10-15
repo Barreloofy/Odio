@@ -24,7 +24,7 @@ struct AudioOnTap: ViewModifier {
 }
 
 
-struct AudioOnChange<T: Hashable>: ViewModifier {
+struct AudioOnChange<T: Equatable>: ViewModifier {
   @AudioPlayer private var audioPlayer
 
   let name: String
@@ -75,25 +75,33 @@ extension View {
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
-  public func audioFeedback(_ name: String, after delay: TimeInterval = 0) -> some View {
+  public func audioFeedback(
+    _ name: String,
+    after delay: TimeInterval = 0) -> some View {
     modifier(AudioOnTap(name: name, delay: delay))
   }
 
-  /// Plays audio when trigger changes.
+  /// Plays audio when `trigger` changes.
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - trigger: The value to monitor for changes.
-  public func audioFeedback(_ name: String, after delay: TimeInterval = 0, trigger: some Hashable) -> some View {
+  public func audioFeedback(
+    _ name: String,
+    after delay: TimeInterval = 0,
+    trigger: some Equatable) -> some View {
     modifier(AudioOnChange(name: name, delay: delay, value: trigger))
   }
 
-  /// Plays audio when shouldPlay is evaluated as true.
+  /// Plays audio when `shouldPlay` is evaluated as true.
   /// - Parameters:
   ///   - name: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - shouldPlay: The value to monitor for true.
-  public func audioFeedback(_ name: String, after delay: TimeInterval = 0, shouldPlay: () -> Bool) -> some View {
+  public func audioFeedback(
+    _ name: String,
+    after delay: TimeInterval = 0,
+    shouldPlay: () -> Bool) -> some View {
     modifier(AudioConditionally(name: name, delay: delay, shouldPlay: .init(value: shouldPlay())))
   }
 
@@ -101,25 +109,33 @@ extension View {
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - delay: The time in seconds before playback occurs.
-  public func audioFeedback(_ key: FileKey, after delay: TimeInterval = 0) -> some View {
+  public func audioFeedback(
+    _ key: FileKey,
+    after delay: TimeInterval = 0) -> some View {
     modifier(AudioOnTap(name: key(), delay: delay))
   }
 
-  /// Plays audio when trigger changes.
+  /// Plays audio when `trigger` changes.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - trigger: The value to monitor for changes.
-  public func audioFeedback(_ key: FileKey, after delay: TimeInterval = 0, trigger: some Hashable) -> some View {
+  public func audioFeedback(
+    _ key: FileKey,
+    after delay: TimeInterval = 0,
+    trigger: some Equatable) -> some View {
     modifier(AudioOnChange(name: key(), delay: delay, value: trigger))
   }
 
-  /// Plays audio when shouldPlay is evaluated as true.
+  /// Plays audio when `shouldPlay` is evaluated as true.
   /// - Parameters:
   ///   - key: The key identifying an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - shouldPlay: The value to monitor for true.
-  public func audioFeedback(_ key: FileKey, after delay: TimeInterval = 0, shouldPlay: () -> Bool) -> some View {
+  public func audioFeedback(
+    _ key: FileKey,
+    after delay: TimeInterval = 0,
+    shouldPlay: () -> Bool) -> some View {
     modifier(AudioConditionally(name: key(), delay: delay, shouldPlay: .init(value: shouldPlay())))
   }
 }

@@ -22,7 +22,11 @@ public struct OdioPlayer {
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
-  public init(_ name: String, after delay: TimeInterval = 0, repeatMode: RepeatMode = .count(), from bundle: Bundle = .main) {
+  public init(
+    _ name: String,
+    after delay: TimeInterval = 0,
+    repeatMode: RepeatMode = .count(),
+    from bundle: Bundle = .main) {
     self.player = createPlayer(name: name, bundle: bundle)
     self.repeatMode = repeatMode
     self.delay = delay
@@ -33,7 +37,11 @@ public struct OdioPlayer {
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
-  public init(_ key: FileKey, after delay: TimeInterval = 0, repeatMode: RepeatMode = .count(), from bundle: Bundle = .main) {
+  public init(
+    _ key: FileKey,
+    after delay: TimeInterval = 0,
+    repeatMode: RepeatMode = .count(),
+    from bundle: Bundle = .main) {
     self.player = createPlayer(name: key(), bundle: bundle)
     self.repeatMode = repeatMode
     self.delay = delay

@@ -5,10 +5,13 @@
 // Created by Barreloofy on 7/24/25 at 6:23 PM
 //
 
+import Foundation
 import os
 
-enum OdioError: Error {
-  case resourceNotFound(String)
+struct OdioError: LocalizedError {
+  let message: String
+
+  var errorDescription: String { message }
 }
 
 let errorLogger = Logger(subsystem: "Odio", category: "Error")

@@ -15,7 +15,7 @@ import AVFoundation
 func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer? {
   do {
     guard let url = bundle.url(forResource: name, withExtension: nil) else {
-      throw OdioError.resourceNotFound("File: \(name) not found in bundle: \(bundle)")
+      throw OdioError(message: "File: \(name) not found in bundle: \(bundle)")
     }
 
     let player = try AVAudioPlayer(contentsOf: url)
@@ -24,7 +24,7 @@ func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer? {
     return player
 
   } catch {
-    errorLogger.error("\(error)")
+    errorLogger.error("\(error.localizedDescription)")
     return nil
   }
 }

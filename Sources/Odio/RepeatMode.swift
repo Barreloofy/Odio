@@ -18,7 +18,7 @@ public enum RepeatMode {
   func numberOfLoops() -> Int {
     switch self {
     case .loop: -1
-    case .count(let count): Int(count == 0 ? 0 : count)
+    case .count(let count): Int(count)
     }
   }
 }

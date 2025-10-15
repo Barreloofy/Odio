@@ -2,6 +2,7 @@
 **Odio a modern, minimal SwiftUI audio framework.**
 
 # Requirements
+* **Swift 6.2 or later**
 * **iOS/iPadOS 17.0 or later.**
 * **macOS 14.0 or later.**
 
