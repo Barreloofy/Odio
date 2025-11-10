@@ -24,12 +24,12 @@ struct AudioOnTap: ViewModifier {
 }
 
 
-struct AudioOnChange<T: Equatable>: ViewModifier {
+struct AudioOnChange<Value: Equatable>: ViewModifier {
   @AudioPlayer private var audioPlayer
 
   let name: String
   let delay: TimeInterval
-  let value: T
+  let value: Value
 
   func body(content: Content) -> some View {
     content
@@ -78,8 +78,8 @@ extension View {
   public func audioFeedback(
     _ name: String,
     after delay: TimeInterval = 0) -> some View {
-    modifier(AudioOnTap(name: name, delay: delay))
-  }
+      modifier(AudioOnTap(name: name, delay: delay))
+    }
 
   /// Plays audio when `trigger` changes.
   /// - Parameters:
@@ -90,8 +90,8 @@ extension View {
     _ name: String,
     after delay: TimeInterval = 0,
     trigger: some Equatable) -> some View {
-    modifier(AudioOnChange(name: name, delay: delay, value: trigger))
-  }
+      modifier(AudioOnChange(name: name, delay: delay, value: trigger))
+    }
 
   /// Plays audio when `shouldPlay` is evaluated as true.
   /// - Parameters:
@@ -102,8 +102,8 @@ extension View {
     _ name: String,
     after delay: TimeInterval = 0,
     shouldPlay: () -> Bool) -> some View {
-    modifier(AudioConditionally(name: name, delay: delay, shouldPlay: .init(value: shouldPlay())))
-  }
+      modifier(AudioConditionally(name: name, delay: delay, shouldPlay: .init(value: shouldPlay())))
+    }
 
   /// Plays audio when the attached view is tapped.
   /// - Parameters:
@@ -112,8 +112,8 @@ extension View {
   public func audioFeedback(
     _ key: FileKey,
     after delay: TimeInterval = 0) -> some View {
-    modifier(AudioOnTap(name: key(), delay: delay))
-  }
+      modifier(AudioOnTap(name: key(), delay: delay))
+    }
 
   /// Plays audio when `trigger` changes.
   /// - Parameters:
@@ -124,8 +124,8 @@ extension View {
     _ key: FileKey,
     after delay: TimeInterval = 0,
     trigger: some Equatable) -> some View {
-    modifier(AudioOnChange(name: key(), delay: delay, value: trigger))
-  }
+      modifier(AudioOnChange(name: key(), delay: delay, value: trigger))
+    }
 
   /// Plays audio when `shouldPlay` is evaluated as true.
   /// - Parameters:
@@ -136,6 +136,6 @@ extension View {
     _ key: FileKey,
     after delay: TimeInterval = 0,
     shouldPlay: () -> Bool) -> some View {
-    modifier(AudioConditionally(name: key(), delay: delay, shouldPlay: .init(value: shouldPlay())))
-  }
+      modifier(AudioConditionally(name: key(), delay: delay, shouldPlay: .init(value: shouldPlay())))
+    }
 }

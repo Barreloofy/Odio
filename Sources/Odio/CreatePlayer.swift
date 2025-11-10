@@ -9,9 +9,9 @@ import AVFoundation
 
 /// Creates an AVAudioPlayer from the contents of a file.
 /// - Parameters:
-///   - name: The name of an audio file.
+///   - name: The name of the audio file.
 ///   - bundle: The bundle to retrieve the file from.
-/// - Returns: An initiated instance of AVAudioPlayer with the contents of the file, if an error occured nil.
+/// - Returns: An instance of `AVAudioPlayer` with the contents of the file, if an error occured `nil`.
 func createPlayer(name: String, bundle: Bundle = .main) -> AVAudioPlayer? {
   do {
     guard let url = bundle.url(forResource: name, withExtension: nil) else {

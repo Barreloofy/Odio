@@ -14,6 +14,7 @@
 /// }
 /// ```
 public struct FileKey: Sendable {
+  /// The name of the file, `FileKey` is representing.
   public let value: String
 
   /// - Parameters:

@@ -9,6 +9,7 @@ import AVFoundation
 
 /// The underlying type used by Odio for audio playback.
 public struct OdioPlayer {
+  /// The underlying `AVAudioPlayer` instance.
   private let player: AVAudioPlayer?
 
   /// The delay before playback occurs.
@@ -60,6 +61,7 @@ public struct OdioPlayer {
   /// You don't call this method directly, instead call the instance as function.
   /// ```swift
   /// let odioPlayer = OdioPlayer("Tap.mp3")
+  ///   ...
   /// odioPlayer()
   /// ```
   public func callAsFunction() {
