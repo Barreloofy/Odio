@@ -9,9 +9,7 @@ import Foundation
 import os
 
 struct OdioError: LocalizedError {
-  let message: String
-
-  var errorDescription: String { message }
+  let errorDescription: String
 }
 
 let errorLogger = Logger(subsystem: "Odio", category: "Error")

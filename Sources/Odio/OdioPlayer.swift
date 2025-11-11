@@ -24,41 +24,41 @@ public struct OdioPlayer {
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
   public init(
-    _ name: String,
+    for fileName: String,
     after delay: TimeInterval = 0,
-    repeatMode: RepeatMode = .count(),
+    repeatMode: RepeatMode = .never,
     from bundle: Bundle = .main) {
-    self.player = createPlayer(name: name, bundle: bundle)
-    self.repeatMode = repeatMode
-    self.delay = delay
-  }
+      self.player = createPlayer(name: fileName, bundle: bundle)
+      self.repeatMode = repeatMode
+      self.delay = delay
+    }
 
   /// - Parameters:
-  ///   - key: The key identifying an audio file.
+  ///   - keyPath: A key path to a specific resulting value representing an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
   public init(
-    _ key: FileKey,
+    from keyPath: KeyPath<FileKey, String>,
     after delay: TimeInterval = 0,
-    repeatMode: RepeatMode = .count(),
+    repeatMode: RepeatMode = .never,
     from bundle: Bundle = .main) {
-    self.player = createPlayer(name: key(), bundle: bundle)
-    self.repeatMode = repeatMode
-    self.delay = delay
-  }
+      self.player = createPlayer(name: FileKey()[keyPath: keyPath], bundle: bundle)
+      self.repeatMode = repeatMode
+      self.delay = delay
+    }
 
-  /// Creates an empty `OdioPlayer`.
+  /// Creates an empty `OdioPlayer` instance.
   public init() {
     self.player = nil
     self.repeatMode = .count()
     self.delay = 0
   }
 
-  /// Plays back audio using the instance's configured attributes,
-  /// does nothing if instance is empty.
+  /// Starts playback, if the player was previously stoped, resumes playback
+  /// otherwise starts a new playback. If player is empty does nothing.
   ///
-  /// You don't call this method directly, instead call the instance as function.
+  /// You don't call this method directly, instead call the instance as a function.
   /// ```swift
   /// let odioPlayer = OdioPlayer("Tap.mp3")
   ///   ...
@@ -70,10 +70,12 @@ public struct OdioPlayer {
     player.play(atTime: player.deviceCurrentTime + delay)
   }
 
-  /// Stops playback.
-  public func stop() { player?.stop() }
+  /// Stops playback, to resume call the player as you would normally.
+  public func stop() {
+    player?.pause()
+  }
 
-  /// Stops playback and resets playback time to 0.
+  /// Ends playback, calling the player afterwards starts a new playback.
   public func end() {
     player?.stop()
     player?.currentTime = .zero

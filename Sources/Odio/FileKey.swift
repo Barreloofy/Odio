@@ -5,25 +5,21 @@
 // Created by Barreloofy on 8/8/25 at 4:10 PM
 //
 
-/// A type representing a file.
+/// A type representing audio files as properties of itself.
+/// Extend `FileKey` with the `@Entry` macro for safer and quicker access.
 ///
-/// Extend `FileKey` with a static instance for safer and quicker access.
+/// Create `FileKey` entries by extending the `FileKey` structure
+/// with new properties and attaching the @Entry macro to the variable declarations:
 /// ```swift
 /// extension FileKey {
-///   static let tapSound = FileKey(value: "TapSound.mp3")
+///   @Entry var tap = "TapSound.mp3"
 /// }
 /// ```
-public struct FileKey: Sendable {
-  /// The name of the file, `FileKey` is representing.
-  public let value: String
-
-  /// - Parameters:
-  ///   - value: The name of a file with its filename extension.
-  public init(value: String) {
-    self.value = value
-  }
-
-  public func callAsFunction() -> String {
-    value
-  }
-}
+///
+/// Use the `KeyPath` syntax where `FileKey` is supported:
+/// ```swift
+/// ...
+/// @AudioPlayer(\.tap) private var audioPlayer
+/// ...
+/// ```
+public struct FileKey {}

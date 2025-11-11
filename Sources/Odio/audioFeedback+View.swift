@@ -18,8 +18,8 @@ struct AudioOnTap: ViewModifier {
       .simultaneousGesture(
         TapGesture()
           .onEnded { audioPlayer() })
-      .onAppear { audioPlayer = OdioPlayer(name, after: delay) }
-      .onDisappear { audioPlayer.stop() }
+      .onAppear { audioPlayer = OdioPlayer(for: name, after: delay) }
+      .onDisappear { audioPlayer.end() }
   }
 }
 
@@ -34,8 +34,8 @@ struct AudioOnChange<Value: Equatable>: ViewModifier {
   func body(content: Content) -> some View {
     content
       .onChange(of: value) { audioPlayer() }
-      .onAppear { audioPlayer = OdioPlayer(name, after: delay) }
-      .onDisappear { audioPlayer.stop() }
+      .onAppear { audioPlayer = OdioPlayer(for: name, after: delay) }
+      .onDisappear { audioPlayer.end() }
   }
 }
 
@@ -43,8 +43,11 @@ struct AudioOnChange<Value: Equatable>: ViewModifier {
 struct AudioConditionally: ViewModifier {
   struct PlaybackTrigger: Equatable {
     let id = UUID()
-
     let value: Bool
+
+    init(condition: () -> Bool) {
+      value = condition()
+    }
 
     func callAsFunction() -> Bool { value }
   }
@@ -62,10 +65,10 @@ struct AudioConditionally: ViewModifier {
         audioPlayer()
       }
       .onAppear {
-        audioPlayer = OdioPlayer(name, after: delay)
+        audioPlayer = OdioPlayer(for: name, after: delay)
         if shouldPlay() { audioPlayer() }
       }
-      .onDisappear { audioPlayer.stop() }
+      .onDisappear { audioPlayer.end() }
   }
 }
 
@@ -78,7 +81,10 @@ extension View {
   public func audioFeedback(
     _ name: String,
     after delay: TimeInterval = 0) -> some View {
-      modifier(AudioOnTap(name: name, delay: delay))
+      modifier(
+        AudioOnTap(
+          name: name,
+          delay: delay))
     }
 
   /// Plays audio when `trigger` changes.
@@ -90,7 +96,11 @@ extension View {
     _ name: String,
     after delay: TimeInterval = 0,
     trigger: some Equatable) -> some View {
-      modifier(AudioOnChange(name: name, delay: delay, value: trigger))
+      modifier(
+        AudioOnChange(
+          name: name,
+          delay: delay,
+          value: trigger))
     }
 
   /// Plays audio when `shouldPlay` is evaluated as true.
@@ -102,40 +112,55 @@ extension View {
     _ name: String,
     after delay: TimeInterval = 0,
     shouldPlay: () -> Bool) -> some View {
-      modifier(AudioConditionally(name: name, delay: delay, shouldPlay: .init(value: shouldPlay())))
+      modifier(
+        AudioConditionally(
+          name: name,
+          delay: delay,
+          shouldPlay: .init(condition: shouldPlay)))
     }
 
   /// Plays audio when the attached view is tapped.
   /// - Parameters:
-  ///   - key: The key identifying an audio file.
+  ///   - keyPath: A key path to a specific resulting value representing an audio file.
   ///   - delay: The time in seconds before playback occurs.
   public func audioFeedback(
-    _ key: FileKey,
+    _ keyPath: KeyPath<FileKey, String>,
     after delay: TimeInterval = 0) -> some View {
-      modifier(AudioOnTap(name: key(), delay: delay))
+      modifier(
+        AudioOnTap(
+          name: FileKey()[keyPath: keyPath],
+          delay: delay))
     }
 
   /// Plays audio when `trigger` changes.
   /// - Parameters:
-  ///   - key: The key identifying an audio file.
+  ///   - keyPath: A key path to a specific resulting value representing an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - trigger: The value to monitor for changes.
   public func audioFeedback(
-    _ key: FileKey,
+    _ keyPath: KeyPath<FileKey, String>,
     after delay: TimeInterval = 0,
     trigger: some Equatable) -> some View {
-      modifier(AudioOnChange(name: key(), delay: delay, value: trigger))
+      modifier(
+        AudioOnChange(
+          name: FileKey()[keyPath: keyPath],
+          delay: delay,
+          value: trigger))
     }
 
   /// Plays audio when `shouldPlay` is evaluated as true.
   /// - Parameters:
-  ///   - key: The key identifying an audio file.
+  ///   - keyPath: A key path to a specific resulting value representing an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - shouldPlay: The value to monitor for true.
   public func audioFeedback(
-    _ key: FileKey,
+    _ keyPath: KeyPath<FileKey, String>,
     after delay: TimeInterval = 0,
     shouldPlay: () -> Bool) -> some View {
-      modifier(AudioConditionally(name: key(), delay: delay, shouldPlay: .init(value: shouldPlay())))
+      modifier(
+        AudioConditionally(
+          name: FileKey()[keyPath: keyPath],
+          delay: delay,
+          shouldPlay: .init(condition: shouldPlay)))
     }
 }

@@ -15,35 +15,37 @@ import SwiftUI
 /// This is particularly noticeable with lengthy audio files or quick successive calls.
 /// If this becomes a concern, call the `end()` method before initiating a new playback.
 ///
-/// Use the `FileKey` overload initializer to quickly and safely initialize a new `@AudioPlayer`.
+/// Use the `FileKey` initializer to quickly and safely initialize a new `@AudioPlayer`:
 /// ```swift
 /// extension FileKey {
-///   static let tap = FileKey(value: "TapSound.mp3")
+///   @Entry var tap = "TapSound.mp3"
 /// }
 ///   ...
-/// @AudioPlayer(.tap) private var audioPlayer
+/// @AudioPlayer(\.tap) private var audioPlayer
 /// ```
 ///
-/// You can also initialize an empty `@AudioPlayer`, useful when the audio file to use is not known initially.
+/// You can also initialize an empty `@AudioPlayer`, useful when the audio file to use is not known initially,
+/// for example, here is an excerpt from one of the `audioFeedback` methods implementation:
 /// ```swift
 /// @AudioPlayer private var audioPlayer
 ///
 /// let name: String
+/// let delay: TimeInterval
 ///
 /// func body(content: Content) -> some View {
 ///   content
 ///     .simultaneousGesture(
 ///       TapGesture()
 ///         .onEnded { audioPlayer() })
-///         .onAppear { audioPlayer = OdioPlayer(name) }
-///         .onDisappear { audioPlayer.stop() }
+///     .onAppear { audioPlayer = OdioPlayer(for: name, after: delay) }
+///     .onDisappear { audioPlayer.end() }
 /// }
 /// ```
 ///
-/// Initialize an instance of `@AudioPlayer`with playback delay.
-/// Here, playback will occur after a delay of one second.
+/// Initialize an instance of `@AudioPlayer`with playback delay,
+/// here, playback will occur after a delay of one second:
 /// ```swift
-/// @AudioPlayer(.tap, after: 1.0) private var audioPlayer
+/// @AudioPlayer(\.tap, after: 1.0) private var audioPlayer
 ///
 /// var body: some View {
 ///   Button("Tap Me") { audioPlayer() }
@@ -56,8 +58,6 @@ import SwiftUI
 ///
 /// var body: some View {
 ///   Button("Play Sound") { audioPlayer() }
-///
-///   Button("New Sound") { audioPlayer = .init("ThunderSound.mp3") }
 /// }
 /// ```
 @MainActor
@@ -87,29 +87,29 @@ public struct AudioPlayer: DynamicProperty {
     repeatMode: RepeatMode = .count(),
     from bundle: Bundle = .main) {
       self.player = .init(
-        name,
+        for: name,
         after: delay,
         repeatMode: repeatMode,
         from: bundle)
     }
 
   /// - Parameters:
-  ///   - key: The key identifying an audio file.
+  ///   - keyPath: A key path to a specific resulting value representing an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
   public init(
-    _ key: FileKey,
+    _ keyPath: KeyPath<FileKey, String>,
     after delay: TimeInterval = 0,
     repeatMode: RepeatMode = .count(),
     from bundle: Bundle = .main) {
       self.player = .init(
-        key,
+        from: keyPath,
         after: delay,
         repeatMode: repeatMode,
         from: bundle)
     }
 
-  /// Creates an empty `@AudioPlayer`.
+  /// Creates an empty `@AudioPlayer` instance.
   public init() { player = .init() }
 }
