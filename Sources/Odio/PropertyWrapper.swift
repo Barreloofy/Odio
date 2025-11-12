@@ -77,17 +77,17 @@ public struct AudioPlayer: DynamicProperty {
   }
 
   /// - Parameters:
-  ///   - name: The name of an audio file.
+  ///   - fileName: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
   public init(
-    _ name: String,
+    _ fileName: String,
     after delay: TimeInterval = 0,
     repeatMode: RepeatMode = .count(),
     from bundle: Bundle = .main) {
       self.player = .init(
-        for: name,
+        for: fileName,
         after: delay,
         repeatMode: repeatMode,
         from: bundle)

@@ -13,7 +13,7 @@ Initialize an instance of ``Odio/AudioPlayer`` in of the following three ways.
 
 Initialize an instance with a `String` literal:
 ```swift
-@AudioPlayer("Tap.mp3") private var audioPlayer
+@AudioPlayer("TapSound.mp3") private var audioPlayer
 ```
 
 Initialize an instance with a key path:
@@ -46,7 +46,6 @@ var body: some View {
       } else {
         audioPlayer = .init("OWonAudio.mp3")
       }
-      
       audioPlayer()
     }
 }
@@ -58,38 +57,46 @@ The `audioFeedback` API consists of different view methods applicable in differe
 
 * ``SwiftUICore/View/audioFeedback(_:after:)-(String,_)`` Plays audio when the attached view is tapped.
 
-* ``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-(String,_,_)`` Plays audio when shouldPlay is evaluated as true.
+* ``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-(String,_,_)`` Plays audio when shouldPlay is evaluated to true.
 
 * ``SwiftUICore/View/audioFeedback(_:after:trigger:)-(String,_,_)`` Plays audio when trigger changes.
 
-All of these methods have an overloaded key path version instead of `String`,
-See: <doc:UsingFileKey> to learn more.
+All of these methods have a `KeyPath` overload, to learn more, see: <doc:UsingFileKey>.
 
-``SwiftUICore/View/audioFeedback(_:after:)-(String,_)`` Plays `IncrementSound.mp3` every time the button is tapped:
+### audioFeedback examples.
+
+``SwiftUICore/View/audioFeedback(_:after:)-(String,_)`` If the button is tapped plays the `OpenSound.mp3`:
 ```swift
-var body: some View {
-  Button("Increment") { ... }
-    .audioFeedback("IncrementSound.mp3")
+var body: Some View {
+  ...
+  Button("Open") { ... }
+    .audioFeedback("OpenSound.mp3")
+  ...
 }
 ```
 
-``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-(String,_,_)`` Every time `count` is even plays `EvenSound.mp3`
-otherwise plays `OddSound.mp3`:
+``SwiftUICore/View/audioFeedback(_:after:shouldPlay:)-(String,_,_)`` Every time `count` changes evaluates the closure, if the closure retuns true plays `EvenSound.mp3`:
 ```swift
-var body: some View {
-  Text("\(count)")
-    .audioFeedback("EvenSound.mp3") { count % 2 == 0 }
-    .audioFeedback("OddSound.mp3") { count % 2 == 1 }
-}
-```
+...
+var body: Some View {
+  VStack {
+    Button("+") { ... }
 
-``SwiftUICore/View/audioFeedback(_:after:trigger:)-(String,_,_)`` Plays `InsertSound.mp3` when a new `Int` is added 
-to the Set `uniqueInts`:
-```swift
-var body: some View {
-  Button("Generate Random Int") {
-    uniqueInts.insert(Int.random(in: 0...50))
+    Text("\(count)")
+
+    Button("-") { ... }
   }
-  .audioFeedback("InsertSound.mp3", trigger: uniqueInts)
+  .audioFeedback("EvenSound.mp3") { count % 2 == 0 }
 }
+```
+
+``SwiftUICore/View/audioFeedback(_:after:trigger:)-(String,_,_)`` Every time `count` changes plays `ChangeSound.mp3`:
+```swift
+  ...
+  var body: Some View {
+    ...
+    Text("Current Count: \(count)") 
+      .audioFeedback("ChangeSound.mp3", trigger: count)
+    ...
+  }
 ```

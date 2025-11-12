@@ -11,7 +11,7 @@ Odio a modern, minimal SwiftUI audio framework.
 
 ## Overview
 
-`Odio` delivers a familiar experience for seamless audio playback in your `SwiftUI` project.
+`Odio` delivers a familiar experience for seamless audio playback in your `SwiftUI` projects.
 Use intuitive methods like `audioFeedback()` and property wrapper `@OdioPlayer` to configure and control audio feedback. 
 The goal of `Odio` is to provide a complementary minimal experience to SwiftUI.
 
@@ -21,5 +21,6 @@ The goal of `Odio` is to provide a complementary minimal experience to SwiftUI.
 
 - <doc:GettingStarted>
 - <doc:UsingFileKey>
+
 - <doc:RepeatPlayback>
 - <doc:DelayPlayback>

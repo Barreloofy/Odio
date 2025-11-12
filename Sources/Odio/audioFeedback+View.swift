@@ -76,45 +76,45 @@ struct AudioConditionally: ViewModifier {
 extension View {
   /// Plays audio when the attached view is tapped.
   /// - Parameters:
-  ///   - name: The name of an audio file.
+  ///   - fileName: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
   public func audioFeedback(
-    _ name: String,
+    _ fileName: String,
     after delay: TimeInterval = 0) -> some View {
       modifier(
         AudioOnTap(
-          name: name,
+          name: fileName,
           delay: delay))
     }
 
   /// Plays audio when `trigger` changes.
   /// - Parameters:
-  ///   - name: The name of an audio file.
+  ///   - fileName: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - trigger: The value to monitor for changes.
   public func audioFeedback(
-    _ name: String,
+    _ fileName: String,
     after delay: TimeInterval = 0,
     trigger: some Equatable) -> some View {
       modifier(
         AudioOnChange(
-          name: name,
+          name: fileName,
           delay: delay,
           value: trigger))
     }
 
-  /// Plays audio when `shouldPlay` is evaluated as true.
+  /// Plays audio when `shouldPlay` is evaluated to true.
   /// - Parameters:
-  ///   - name: The name of an audio file.
+  ///   - fileName: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - shouldPlay: The value to monitor for true.
   public func audioFeedback(
-    _ name: String,
+    _ fileName: String,
     after delay: TimeInterval = 0,
     shouldPlay: () -> Bool) -> some View {
       modifier(
         AudioConditionally(
-          name: name,
+          name: fileName,
           delay: delay,
           shouldPlay: .init(condition: shouldPlay)))
     }
@@ -148,7 +148,7 @@ extension View {
           value: trigger))
     }
 
-  /// Plays audio when `shouldPlay` is evaluated as true.
+  /// Plays audio when `shouldPlay` is evaluated to true.
   /// - Parameters:
   ///   - keyPath: A key path to a specific resulting value representing an audio file.
   ///   - delay: The time in seconds before playback occurs.

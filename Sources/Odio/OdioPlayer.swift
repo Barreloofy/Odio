@@ -19,7 +19,7 @@ public struct OdioPlayer {
   public var repeatMode: RepeatMode
 
   /// - Parameters:
-  ///   - name: The name of an audio file.
+  ///   - fileName: The name of an audio file.
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
@@ -60,7 +60,7 @@ public struct OdioPlayer {
   ///
   /// You don't call this method directly, instead call the instance as a function.
   /// ```swift
-  /// let odioPlayer = OdioPlayer("Tap.mp3")
+  /// let odioPlayer = OdioPlayer("TapSound.mp3")
   ///   ...
   /// odioPlayer()
   /// ```
