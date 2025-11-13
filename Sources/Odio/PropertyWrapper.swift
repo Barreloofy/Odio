@@ -84,7 +84,7 @@ public struct AudioPlayer: DynamicProperty {
   public init(
     _ fileName: String,
     after delay: TimeInterval = 0,
-    repeatMode: RepeatMode = .count(),
+    repeatMode: RepeatMode = .never,
     from bundle: Bundle = .main) {
       self.player = .init(
         for: fileName,
@@ -101,7 +101,7 @@ public struct AudioPlayer: DynamicProperty {
   public init(
     _ keyPath: KeyPath<FileKey, String>,
     after delay: TimeInterval = 0,
-    repeatMode: RepeatMode = .count(),
+    repeatMode: RepeatMode = .never,
     from bundle: Bundle = .main) {
       self.player = .init(
         from: keyPath,

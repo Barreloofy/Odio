@@ -22,4 +22,6 @@
 /// @AudioPlayer(\.tap) private var audioPlayer
 /// ...
 /// ```
-public struct FileKey {}
+public struct FileKey {
+  init() {}
+}

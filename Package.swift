@@ -25,10 +25,7 @@ let package = Package(
         "EntryMacros",
       ],
       swiftSettings: [
-        SwiftSetting.swiftLanguageMode(.v6),
-        SwiftSetting.defaultIsolation(MainActor.self),
-        .enableExperimentalFeature("AccessLevelOnImport"),
-        .enableExperimentalFeature("Macros"),
+        .defaultIsolation(MainActor.self),
       ]),
     .macro(
       name: "EntryMacros",
@@ -36,4 +33,7 @@ let package = Package(
         .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
         .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
       ]),
+  ],
+  swiftLanguageModes: [
+    .v6,
   ])

@@ -51,8 +51,8 @@ public struct OdioPlayer {
   /// Creates an empty `OdioPlayer` instance.
   public init() {
     self.player = nil
-    self.repeatMode = .count()
     self.delay = 0
+    self.repeatMode = .never
   }
 
   /// Starts playback, if the player was previously stoped, resumes playback

@@ -7,10 +7,10 @@ but as the project grows, this becomes more cumbersome and error-prone.
 There are different approaches one can take to resolve these issues, 
 one of these approaches is ``Odio/FileKey``.
 
-### What is FileKey?
+## What is FileKey?
 At its essence, `FileKey`, offers an interface through which you reference files.
 
-### How to use FileKey?
+## How to use FileKey?
 First, extend `FileKey` with new properties and attaching the @Entry macro to the variable declarations:
 ```swift
 extension FileKey {
@@ -18,7 +18,7 @@ extension FileKey {
 }
 ```
 
-#### Using Filekey
+### Using Filekey
 All of `Odio`'s API's that offer a version which reference a file through a string, 
 also offer a `FileKey` overload in the form of: `KeyPath<FileKey, String>`.
 

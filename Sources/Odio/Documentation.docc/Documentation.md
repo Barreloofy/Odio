@@ -21,6 +21,4 @@ The goal of `Odio` is to provide a complementary minimal experience to SwiftUI.
 
 - <doc:GettingStarted>
 - <doc:UsingFileKey>
-
-- <doc:RepeatPlayback>
-- <doc:DelayPlayback>
+- <doc:CustomizePlayback>

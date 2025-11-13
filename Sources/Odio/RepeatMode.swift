@@ -11,7 +11,7 @@ public enum RepeatMode {
   case never
 
   /// Repeats playback the specified number of times, playback will occur at least once.
-  case count(UInt = 0)
+  case repeating(UInt = 0)
 
   /// Indefinitely plays back audio.
   case loop
@@ -22,7 +22,7 @@ public enum RepeatMode {
     switch self {
     case .never:
       0
-    case .count(let count):
+    case .repeating(let count):
       Int(count)
     case .loop:
       -1
