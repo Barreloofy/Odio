@@ -2,9 +2,9 @@
 **Odio a modern, minimal SwiftUI audio framework.**
 
 # Requirements
-* **Swift 6.2 or later**
-* **iOS/iPadOS 17.0 or later.**
-* **macOS 14.0 or later.**
+* **Xcode 26.0**
+* **iOS/iPadOS 14.0 or later.**
+* **macOS 11.0 or later.**
 
 # Features
 * **`@AudioPlayer` property wrapper offers a modern imperative approach to audio management in SwiftUI.**

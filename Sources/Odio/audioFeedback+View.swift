@@ -40,7 +40,7 @@ struct AudioOnChange<Value: Equatable>: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .onChange(of: value) {
+      .onChangeChooseAvailable(of: value) {
         audioPlayer.rewind()
         audioPlayer()
       }
@@ -74,7 +74,7 @@ struct AudioConditionally: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .onChange(of: shouldPlay) {
+      .onChangeChooseAvailable(of: shouldPlay) {
         guard shouldPlay() else { return }
         audioPlayer.rewind()
         audioPlayer()
