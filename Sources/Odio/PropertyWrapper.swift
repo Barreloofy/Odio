@@ -78,16 +78,19 @@ public struct AudioPlayer: DynamicProperty {
 
   /// - Parameters:
   ///   - fileName: The name of an audio file.
+  ///   - speed: The speed at which playback occurs.
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
   public init(
     _ fileName: String,
+    at speed: Float = 1,
     after delay: TimeInterval = 0,
     repeatMode: RepeatMode = .never,
     from bundle: Bundle = .main) {
       self.player = .init(
         for: fileName,
+        at: speed,
         after: delay,
         repeatMode: repeatMode,
         from: bundle)
@@ -95,16 +98,19 @@ public struct AudioPlayer: DynamicProperty {
 
   /// - Parameters:
   ///   - keyPath: A key path to a specific resulting value representing an audio file.
+  ///   - speed: The speed at which playback occurs.
   ///   - delay: The time in seconds before playback occurs.
   ///   - repeatMode: The playback repeat mode to use.
   ///   - bundle: The bundle to retrieve the file from.
   public init(
     _ keyPath: KeyPath<FileKey, String>,
+    at speed: Float = 1,
     after delay: TimeInterval = 0,
     repeatMode: RepeatMode = .never,
     from bundle: Bundle = .main) {
       self.player = .init(
         from: keyPath,
+        at: speed,
         after: delay,
         repeatMode: repeatMode,
         from: bundle)
