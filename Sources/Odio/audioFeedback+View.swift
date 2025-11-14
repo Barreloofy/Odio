@@ -17,9 +17,16 @@ struct AudioOnTap: ViewModifier {
     content
       .simultaneousGesture(
         TapGesture()
-          .onEnded { audioPlayer() })
-      .onAppear { audioPlayer = OdioPlayer(for: name, after: delay) }
-      .onDisappear { audioPlayer.end() }
+          .onEnded {
+            audioPlayer.rewind()
+            audioPlayer()
+          })
+      .onAppear {
+        audioPlayer = OdioPlayer(for: name, after: delay)
+      }
+      .onDisappear {
+        audioPlayer.end()
+      }
   }
 }
 
@@ -33,9 +40,16 @@ struct AudioOnChange<Value: Equatable>: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .onChange(of: value) { audioPlayer() }
-      .onAppear { audioPlayer = OdioPlayer(for: name, after: delay) }
-      .onDisappear { audioPlayer.end() }
+      .onChange(of: value) {
+        audioPlayer.rewind()
+        audioPlayer()
+      }
+      .onAppear {
+        audioPlayer = OdioPlayer(for: name, after: delay)
+      }
+      .onDisappear {
+        audioPlayer.end()
+      }
   }
 }
 
@@ -62,13 +76,16 @@ struct AudioConditionally: ViewModifier {
     content
       .onChange(of: shouldPlay) {
         guard shouldPlay() else { return }
+        audioPlayer.rewind()
         audioPlayer()
       }
       .onAppear {
         audioPlayer = OdioPlayer(for: name, after: delay)
         if shouldPlay() { audioPlayer() }
       }
-      .onDisappear { audioPlayer.end() }
+      .onDisappear {
+        audioPlayer.end()
+      }
   }
 }
 

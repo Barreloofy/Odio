@@ -77,7 +77,7 @@ public struct OdioPlayer {
   public func callAsFunction() {
     guard let player = player else { return }
 
-    player.enableRate = speed == 1 ? false : true
+    player.enableRate = speed != 1 ? true : false
     player.rate = speed
     player.numberOfLoops = repeatMode.numberOfLoops()
     player.play(atTime: player.deviceCurrentTime + delay)
@@ -91,6 +91,11 @@ public struct OdioPlayer {
   /// Ends playback, calling the player afterwards starts a new playback.
   public func end() {
     player?.stop()
+    player?.currentTime = .zero
+  }
+  
+  /// Resets the current audio playback timeline.
+  public func rewind() {
     player?.currentTime = .zero
   }
 }
